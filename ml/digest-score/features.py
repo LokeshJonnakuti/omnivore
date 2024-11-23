@@ -18,6 +18,7 @@ from features.user_history import generate_and_upload_user_history
 
 from datetime import datetime, timezone
 from auth import generate_admin_token
+from security import safe_requests
 
 
 def call_refresh_api(api):
@@ -25,7 +26,7 @@ def call_refresh_api(api):
     'Authorization': f'Bearer {generate_admin_token()}'
   }
   try:
-    response = requests.get(api, headers=headers, timeout=10)
+    response = safe_requests.get(api, headers=headers, timeout=10)
     if response.status_code == 200:
         print("scoring service refreshed")
     else:
